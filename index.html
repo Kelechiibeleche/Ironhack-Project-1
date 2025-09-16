@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hero or Villian?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🦸Battle Of Good and Evil🦹</h1>
+      <div class="stats">
+        <span id="time">15</span>s | Score: <span id="scoreStat">0</span>
+      </div>
+    </header>
+
+    <main>
+      <!-- Screen 1: Start -->
+      <section id="screen-start" class="screen show">
+        <h2>Ready?</h2>
+        <p>
+          You will be presented with several names of Marvel and DC superstars,
+          one after the other. You are to classify as many names as you can in
+          15 seconds!
+        </p>
+        <button id="btnStart">Start</button>
+      </section>
+
+      <!-- Screen 2: Game -->
+      <section id="screen-game" class="screen">
+        <h2>Hero or Villian?</h2>
+        <div id="name" class="big">—</div>
+        <img
+          id="charImage"
+          src=""
+          alt="Character image"
+          style="
+            max-width: 220px;
+            margin: 10px auto;
+            display: block;
+            border-radius: 10px;
+          "
+        />
+        <div id="feedback" class="feedback"></div>
+
+        <div class="buttons">
+          <button id="btnHero">Hero</button>
+          <button id="btnVillain">Villain</button>
+        </div>
+
+        <div class="row">
+          <div>Score: <strong id="score">0</strong></div>
+          <div>Answered: <strong id="answered">0</strong></div>
+          <div>High score: <strong id="high">0</strong></div>
+        </div>
+      </section>
+
+      <!-- Screen 3: End -->
+      <section id="screen-end" class="screen">
+        <h2>Time Up!</h2>
+        <p>Final score: <strong id="finalScore">0</strong></p>
+        <p>Answered: <strong id="finalAnswered">0</strong></p>
+        <p>Accuracy: <strong id="finalAccuracy">0%</strong></p>
+        <div class="buttons">
+          <button id="btnPlayAgain">Play again</button>
+          <button id="btnBackHome">Back to start</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Load in this order -->
+    <script src="question.js"></script>
+    <script src="quiz.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
