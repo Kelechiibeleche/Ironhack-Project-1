@@ -25,6 +25,21 @@
     this.timeLeft = this.totalTimeSeconds;
     this.over = false;
 
+    this.onStats({ score: this.score, answered: this.answered });
+
+    this.pool = window.QUESTIONS.slice();
+    this.next();
+
+    clearInterval(this.timerId);
+    this.onTick(this.timeLeft);
+    this.timerId = setInterval(() => {
+      if (this.over) return;
+      this.timeLeft--;
+      if (this.timeLeft < 0) this.timeLeft = 0;
+      this.onTick(this.timeLeft);
+      if (this.timeLeft <= 0) this.finish();
+    }, 1000);
+
     this.pool = window.QUESTIONS.slice();
 
     // first question

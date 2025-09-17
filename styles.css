@@ -16,13 +16,14 @@ header {
   justify-content: center;
   align-items: center;
   padding: 14px 20px;
-  background: #1c2f5c; /* Darker blue */
-  border-bottom: 3px solid #e63946; /* Red highlight */
-  color: #ffd60a; /* Golden yellow */
+  background: #1c2f5c;
+  border-bottom: 3px solid #e63946;
+  color: #ffd60a;
   text-align: center;
 }
 .stats {
   font-weight: bold;
+  font-size: xx-large;
 }
 
 main {
@@ -35,8 +36,12 @@ main {
   display: none;
 }
 
+.instruction {
+  font-size: larger;
+}
 #screen-start {
   text-align: center;
+  font-size: larger;
 }
 .screen.show {
   display: block;
@@ -64,6 +69,11 @@ h2 {
   justify-content: center;
 }
 
+.end-reset {
+  text-align: center;
+  margin-top: 12px;
+}
+
 button {
   padding: 12px 20px;
   border-radius: 10px;
@@ -77,6 +87,7 @@ button {
 
 #screen-game {
   text-align: center;
+  font-size: larger;
 }
 
 #btnHero {
@@ -102,6 +113,34 @@ button {
 #btnPlayAgain:hover,
 #btnBackHome:hover {
   background: #457b9d;
+}
+
+/* === Toggle Music Button === */
+#toggleMusic {
+  background: #1d3557;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+#toggleMusic:hover {
+  background: #457b9d;
+}
+
+#resetHigh {
+  background: #9d0208;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 12px;
+  justify-content: center;
+}
+#resetHigh:hover {
+  background: #d00000;
 }
 
 button:disabled {
@@ -140,6 +179,7 @@ button:disabled {
 
 #screen-end {
   text-align: center;
+  font-size: larger;
 }
 
 @media (max-width: 480px) {

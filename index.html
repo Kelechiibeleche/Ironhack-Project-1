@@ -18,11 +18,23 @@
       <!-- Screen 1: Start -->
       <section id="screen-start" class="screen show">
         <h2>Ready?</h2>
-        <p>
+        <p class="instruction">
           You will be presented with several names of Marvel and DC superstars,
           one after the other. You are to classify as many names as you can in
           15 seconds!
         </p>
+
+        <section id="screen-start" class="screen show">
+          <h2>How to Play</h2>
+          <ul>
+            <li>Click <strong>Start</strong></li>
+            <li>Look at the name and image of the character</li>
+            <li>Choose <strong>Hero</strong> or <strong>Villain</strong></li>
+            <li>Keep going until time runs out!</li>
+            <li>Check your score and accuracy at the end screen</li>
+          </ul>
+        </section>
+
         <button id="btnStart">Start</button>
       </section>
 
@@ -53,6 +65,11 @@
           <div>Answered: <strong id="answered">0</strong></div>
           <div>High score: <strong id="high">0</strong></div>
         </div>
+
+        <audio id="bgMusic" src="audio/sound.mp3" loop></audio>
+
+        <!-- toggle button -->
+        <button id="toggleMusic">🔊 Music</button>
       </section>
 
       <!-- Screen 3: End -->
@@ -64,6 +81,10 @@
         <div class="buttons">
           <button id="btnPlayAgain">Play again</button>
           <button id="btnBackHome">Back to start</button>
+        </div>
+
+        <div class="end-reset">
+          <button id="resetHigh">🔄 Reset High Score</button>
         </div>
       </section>
     </main>

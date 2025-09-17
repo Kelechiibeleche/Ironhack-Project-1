@@ -24,6 +24,10 @@ const finalAnsweredEl = document.getElementById("finalAnswered");
 const finalAccuracyEl = document.getElementById("finalAccuracy");
 const charImage = document.getElementById("charImage");
 
+const bgMusic = document.getElementById("bgMusic");
+const toggleMusicBtn = document.getElementById("toggleMusic");
+const resetHighBtn = document.getElementById("resetHigh");
+
 // Screen switching
 function show(el) {
   scrStart.classList.remove("show");
@@ -97,6 +101,10 @@ quiz.onEnd = (result) => {
   finalAnsweredEl.textContent = String(result.answered);
   finalAccuracyEl.textContent = `${result.accuracy}%`;
 
+  // 🔇 Stop music at end
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+
   show(scrEnd);
 };
 
@@ -105,6 +113,12 @@ btnStart.addEventListener("click", () => {
   show(scrGame);
   setAnswerButtonsEnabled(true);
   quiz.start();
+
+  // 🔊 Start background music
+  bgMusic.volume = 0.5; // volume between 0.0 - 1.0
+  bgMusic.play().catch((err) => {
+    console.log("Autoplay blocked:", err);
+  });
 });
 
 btnHero.addEventListener("click", () => {
@@ -148,4 +162,20 @@ window.addEventListener("keydown", (e) => {
   const k = e.key.toLowerCase();
   if (k === "h" || e.key === "ArrowLeft") btnHero.click();
   if (k === "v" || e.key === "ArrowRight") btnVill.click();
+});
+
+toggleMusicBtn.addEventListener("click", () => {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    toggleMusicBtn.textContent = "🔊 Music";
+  } else {
+    bgMusic.pause();
+    toggleMusicBtn.textContent = "🔇 Music";
+  }
+});
+
+resetHighBtn.addEventListener("click", () => {
+  localStorage.removeItem("hv_high_score");
+  highEl.textContent = "0";
+  alert("High score reset!");
 });
