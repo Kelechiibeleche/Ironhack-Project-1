@@ -2,8 +2,6 @@
 class Quiz {
   constructor(totalTimeSeconds = 30) {
     this.totalTimeSeconds = totalTimeSeconds;
-
-    // state
     this.score = 0;
     this.answered = 0;
     this.current = null;
@@ -12,30 +10,22 @@ class Quiz {
     this.pool = [];
     this.over = false;
 
-    // callbacks (wired in index.js)
     this.onQuestion = () => {};
     this.onTick = () => {};
     this.onStats = () => {};
     this.onEnd = () => {};
   }
-
   start() {
-    // reset state
     this.score = 0;
     this.answered = 0;
     this.timeLeft = this.totalTimeSeconds;
     this.over = false;
-
-    // let UI show 0/0 immediately
     this.onStats({ score: this.score, answered: this.answered });
 
     // fresh pool (no repeats within the round)
     this.pool = window.QUESTIONS.slice();
-
-    // first question
     this.next();
 
-    // (re)start countdown
     this._stopTimer();
     this.onTick(this.timeLeft); // show full time instantly
     this.timerId = setInterval(() => {
@@ -48,8 +38,6 @@ class Quiz {
 
   next() {
     if (this.over) return;
-
-    // end round if pool exhausted
     if (this.pool.length === 0) {
       this.finish();
       return;

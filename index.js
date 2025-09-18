@@ -3,28 +3,22 @@ window.onload = function () {
   const scrStart = document.getElementById("screen-start");
   const scrGame = document.getElementById("screen-game");
   const scrEnd = document.getElementById("screen-end");
-
   const btnStart = document.getElementById("btnStart");
   const btnHero = document.getElementById("btnHero");
   const btnVill = document.getElementById("btnVillain");
   const btnPlay = document.getElementById("btnPlayAgain");
   const btnHome = document.getElementById("btnBackHome");
-
   const nameEl = document.getElementById("name");
   const feedback = document.getElementById("feedback");
-
   const scoreStat = document.getElementById("scoreStat");
   const timeEl = document.getElementById("time");
-
   const scoreEl = document.getElementById("score");
   const answeredEl = document.getElementById("answered");
   const highEl = document.getElementById("high");
-
   const finalScoreEl = document.getElementById("finalScore");
   const finalAnsweredEl = document.getElementById("finalAnswered");
   const finalAccuracyEl = document.getElementById("finalAccuracy");
   const charImage = document.getElementById("charImage");
-
   const bgMusic = document.getElementById("bgMusic");
   const toggleMusicBtn = document.getElementById("toggleMusic");
   const resetHighBtn = document.getElementById("resetHigh");
@@ -37,13 +31,11 @@ window.onload = function () {
     el.classList.add("show");
   }
 
-  // Enable/disable answer buttons
   function setAnswerButtonsEnabled(enabled) {
     btnHero.disabled = !enabled;
     btnVill.disabled = !enabled;
   }
 
-  // High score helpers
   const HIGH_KEY = "hv_high_score";
   const getHigh = () => parseInt(localStorage.getItem(HIGH_KEY) || "0", 10);
   const setHigh = (v) => localStorage.setItem(HIGH_KEY, String(v));
@@ -53,10 +45,8 @@ window.onload = function () {
   const quiz = new window.Quiz(15);
 
   quiz.onQuestion = (q) => {
-    // Update the name
     nameEl.textContent = q.name;
 
-    // Update the image
     if (q.img) {
       charImage.src = q.img;
       charImage.alt = q.name;
@@ -67,7 +57,6 @@ window.onload = function () {
       charImage.style.display = "none";
     }
 
-    // Reset feedback and re-enable buttons
     feedback.textContent = "";
     feedback.className = "feedback";
     setAnswerButtonsEnabled(true);
