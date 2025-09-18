@@ -155,6 +155,9 @@ window.onload = function () {
   btnHome.addEventListener("click", () => {
     show(scrStart);
     setAnswerButtonsEnabled(false);
+    scoreEl.innerText = 0;
+    scoreStat.innerText = 0;
+    timeEl.innerText = 15;
   });
 
   // Keyboard shortcuts (H / V)

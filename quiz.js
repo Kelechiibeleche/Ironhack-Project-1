@@ -17,6 +17,7 @@
     this.onTick = () => {};
     this.onStats = () => {};
     this.onEnd = () => {};
+    this.scoreEl = document.querySelector(`#scoreStat`);
   }
 
   Quiz.prototype.start = function () {
@@ -24,6 +25,7 @@
     this.answered = 0;
     this.timeLeft = this.totalTimeSeconds;
     this.over = false;
+    this.scoreEl.innerText = this.score;
 
     this.onStats({ score: this.score, answered: this.answered });
 
