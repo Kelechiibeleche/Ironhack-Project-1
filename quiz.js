@@ -1,84 +1,69 @@
-// quiz controller
-(function () {
-  function Quiz(totalTimeSeconds) {
-    this.totalTimeSeconds = totalTimeSeconds || 30;
+// Class Quiz
+class Quiz {
+  constructor(totalTimeSeconds = 30) {
+    this.totalTimeSeconds = totalTimeSeconds;
+
+    // state
     this.score = 0;
     this.answered = 0;
     this.current = null;
     this.timeLeft = this.totalTimeSeconds;
     this.timerId = null;
-
-    // pool of remaining questions
     this.pool = [];
-
     this.over = false;
 
+    // callbacks (wired in index.js)
     this.onQuestion = () => {};
     this.onTick = () => {};
     this.onStats = () => {};
     this.onEnd = () => {};
-    this.scoreEl = document.querySelector(`#scoreStat`);
   }
 
-  Quiz.prototype.start = function () {
+  start() {
+    // reset state
     this.score = 0;
     this.answered = 0;
     this.timeLeft = this.totalTimeSeconds;
     this.over = false;
-    this.scoreEl.innerText = this.score;
 
+    // let UI show 0/0 immediately
     this.onStats({ score: this.score, answered: this.answered });
 
-    this.pool = window.QUESTIONS.slice();
-    this.next();
-
-    clearInterval(this.timerId);
-    this.onTick(this.timeLeft);
-    this.timerId = setInterval(() => {
-      if (this.over) return;
-      this.timeLeft--;
-      if (this.timeLeft < 0) this.timeLeft = 0;
-      this.onTick(this.timeLeft);
-      if (this.timeLeft <= 0) this.finish();
-    }, 1000);
-
+    // fresh pool (no repeats within the round)
     this.pool = window.QUESTIONS.slice();
 
     // first question
     this.next();
 
-    // start countdown
-    clearInterval(this.timerId);
-    this.onTick(this.timeLeft);
+    // (re)start countdown
+    this._stopTimer();
+    this.onTick(this.timeLeft); // show full time instantly
     this.timerId = setInterval(() => {
       if (this.over) return;
-      this.timeLeft--;
-      if (this.timeLeft < 0) this.timeLeft = 0;
+      this.timeLeft = Math.max(0, this.timeLeft - 1);
       this.onTick(this.timeLeft);
-      if (this.timeLeft <= 0) {
-        this.finish();
-      }
+      if (this.timeLeft <= 0) this.finish();
     }, 1000);
-  };
+  }
 
-  Quiz.prototype.next = function () {
+  next() {
     if (this.over) return;
 
-    // stop if pool empty
+    // end round if pool exhausted
     if (this.pool.length === 0) {
       this.finish();
       return;
     }
 
-    // pick random index, remove from pool
+    // pick & remove random item (prevents repeats)
     const i = Math.floor(Math.random() * this.pool.length);
     this.current = this.pool.splice(i, 1)[0];
 
     this.onQuestion(this.current);
-  };
+  }
 
   // returns { locked, correct, score, answered }
-  Quiz.prototype.answer = function (choice) {
+  answer(choice) {
     if (this.over || !this.current) {
       return {
         locked: true,
@@ -101,12 +86,12 @@
       score: this.score,
       answered: this.answered,
     };
-  };
+  }
 
-  Quiz.prototype.finish = function () {
+  finish() {
     if (this.over) return;
     this.over = true;
-    clearInterval(this.timerId);
+    this._stopTimer();
     this.current = null;
 
     this.onEnd({
@@ -116,7 +101,15 @@
         ? Math.round((this.score / this.answered) * 100)
         : 0,
     });
-  };
+  }
 
-  window.Quiz = Quiz;
-})();
+  _stopTimer() {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+      this.timerId = null;
+    }
+  }
+}
+
+// expose globally for index.js
+window.Quiz = Quiz;
